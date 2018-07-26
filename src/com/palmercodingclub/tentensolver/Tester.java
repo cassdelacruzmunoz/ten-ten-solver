@@ -25,7 +25,7 @@ public class Tester {
 				main(args);
 				break;
 			case 1:
-				Game g = new Game(new ClearFocusSolution(), pFP, false);
+				Game g = new Game(new ClearFocusSol2(), pFP, false);
 				g.play(true);
 				main(args);
 				break;
@@ -49,7 +49,7 @@ public class Tester {
 	}
 	
 	private static void prepareSolutions() {
-		sols = new Solution[6];
+		sols = new Solution[5];
 		sols[0]=(Solution)(new AdjacencySolution());
 		sols[1]=(Solution)(new ImprovedAdjacencySol());
 		sols[2]=(Solution)(new MySolution());
