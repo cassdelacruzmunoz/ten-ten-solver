@@ -1,6 +1,8 @@
 package com.palmercodingclub.tentensolver;
 import java.util.ArrayList;
 
+import com.cassdelacruzmunoz.library.ConsoleIO;
+
 // Javadoc added by Cassandra
 
 public class Board {
@@ -160,7 +162,7 @@ public class Board {
 	*/
 	private void debug(String s) {
 		if (DEBUG)
-			System.out.println(s);
+			ConsoleIO.print(s);
 	}
 	
 	public Board copyBoard() {

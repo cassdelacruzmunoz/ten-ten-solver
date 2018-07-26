@@ -1,20 +1,20 @@
 package com.palmercodingclub.tentensolver;
 
-import java.util.ArrayList;
 import com.cassdelacruzmunoz.library.ConsoleIO;
 import com.cassdelacruzmunoz.library.math.SingleVariableStats;
 import com.palmercodingclub.tentensolver.solutions.AdjacencySolution;
+import com.palmercodingclub.tentensolver.solutions.ClearFocusSol2;
+import com.palmercodingclub.tentensolver.solutions.ClearFocusSolution;
 import com.palmercodingclub.tentensolver.solutions.ImprovedAdjacencySol;
-import com.palmercodingclub.tentensolver.solutions.MetaSolution;
 import com.palmercodingclub.tentensolver.solutions.MySolution;
 
 public class Tester {
 	static Solution[] sols;
 	static double[][] score;
+	static long[] time;
 	static int trials;
 	static String pFP;
 	static SingleVariableStats[] stats;
-	static long startTime;
 	
 	public static void main(String[] args) {
 		pFP = args[0];
@@ -25,7 +25,7 @@ public class Tester {
 				main(args);
 				break;
 			case 1:
-				Game g = new Game(sols[0], pFP, false);
+				Game g = new Game(new ClearFocusSolution(), pFP, false);
 				g.play(true);
 				main(args);
 				break;
@@ -35,7 +35,6 @@ public class Tester {
 	}
 	
 	private static void comparisonTest() {
-		startTime=System.currentTimeMillis();
 		prepareSolutions();
 		prepareScores();
 		for(int i = 0; i < trials; i++) {
@@ -46,21 +45,24 @@ public class Tester {
 		}
 		calculateStats();
 		printFiveNumSum();
-		ConsoleIO.print("Delta Time: "+(System.currentTimeMillis()-startTime)/1000.0+" seconds");
+		printTimes();
 	}
 	
 	private static void prepareSolutions() {
-		sols = new Solution[4];
+		sols = new Solution[6];
 		sols[0]=(Solution)(new AdjacencySolution());
 		sols[1]=(Solution)(new ImprovedAdjacencySol());
 		sols[2]=(Solution)(new MySolution());
-		sols[3]=(Solution)(new MetaSolution());
+		sols[3]=(Solution)(new ClearFocusSolution());
+		sols[4]=(Solution)(new ClearFocusSol2());
 	}
 	
 	private static void prepareScores() {
 		score = new double[sols.length][];
+		time=new long[sols.length];
 		for (int i = 0; i < score.length; i++) {
 			score[i] = new double[trials];
+			time[i]=0;
 		}
 	}
 	
@@ -68,8 +70,10 @@ public class Tester {
 		long seed = System.currentTimeMillis();
 		for(int a = 0; a < sols.length; a++) {
 			Game g = new Game(sols[a], pFP, false, seed);
+			long timeTemp=System.currentTimeMillis();
 			g.play(false);
 			score[a][i]=g.getScore();
+			time[a]+=System.currentTimeMillis()-timeTemp;
 		}
 	}
 	
@@ -90,12 +94,11 @@ public class Tester {
 			ConsoleIO.print("");
 		}
 	}
-	
-	public static double avg(ArrayList<Integer> arr) {
-		double a = 0;
-		for (int b : arr)
-			a += b;
-
-		return a / arr.size();
+	private static void printTimes() {
+		System.out.printf("\t");
+		for (int a=0;a<time.length;a++) {
+			System.out.printf("%5d\t", time[a]);
+		}
+		ConsoleIO.print("");
 	}
 }

@@ -8,7 +8,7 @@ public abstract class Solution {
 
 	protected Board b;
 	
-	protected Solution(String name) {
+	public Solution(String name) {
 		b = null;
 		this.name=name;
 	}

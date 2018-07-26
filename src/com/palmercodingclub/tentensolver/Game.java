@@ -117,9 +117,11 @@ public class Game {
 				your choice of logic and/or randomness to
 				solve the puzzle!
 			*/
-			sol.doMove( piecesInPlay );
-
-			score += b.scanAndClear();
+			score+=sol.doMove( piecesInPlay );
+			b.scanAndClear();
+			if(player) {
+				ConsoleIO.print(b.toString());
+			}
 		}
 		//System.out.println("Total Score: " + score);
 

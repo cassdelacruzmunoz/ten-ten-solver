@@ -41,7 +41,7 @@ public class Piece {
 		int score=0;
 		for (boolean[] arr : raw) {
 			for (boolean cell : arr) {
-				score+=(cell ? 0 : 1);
+				score+=(cell ? 1 : 0);
 			}
 		}
 		return score;
