@@ -92,7 +92,7 @@ public class Tester {
 				System.out.printf("%5d\t",(int)(stats[b].fiveNumSummary()[a]));
 			}
 			ConsoleIO.print("");
-		}
+    }
 	}
 	private static void printTimes() {
 		System.out.printf("\t");
